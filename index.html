@@ -3,9 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0-0</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        #bgVideo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: auto;
+            height: auto;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
-    <h1>Test! 🎵</h1>
-    <p>Markdown test!</p>
+    <div id="video-container">
+        <video id="bGVideo" loop muted>
+            <source src="video.mp4" type="video/mp4">
+        </video>
+    </div>
+
 </body>
 </html>
