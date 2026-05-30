@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    color: #cccccc;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #080808;
+}
+
+#video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+#bgVideo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: auto;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    filter: brightness(0.4) contrast(1.1) grayscale(0.4);
+}
+
+.content-overlay {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    cursor: pointer;
+    background: radial-gradient(circle at center, transparent 0%, rgba(8, 8, 8, 0.6) 100%);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    transition: backdrop-filter 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.content-overlay.blurred {
+    backdrop-filter: blur(35px);
+    -webkit-backdrop-filter: blur(35px);
+}
+
+.enter-text {
+    font-size: 1rem;
+    letter-spacing: 10px;
+    color: #555555;
+    text-transform: uppercase;
+    position: absolute;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    pointer-events: none;
+    font-weight: 400;
+}
+
+.enter-text.fade-out {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.glass-panel {
+    background: rgba(20, 20, 20, 0.15);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 20px;
+    padding: 16px; 
+    max-width: 440px; 
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1.5s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s ease;
+    pointer-events: none;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6);
+}
+
+.glass-panel.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.glass-panel:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.discord-profile {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.avatar-container {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+}
+
+#discordAvatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.status-dot {
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid #0d0d11;
+}
+
+.status-dot.online { background-color: #23a55a; box-shadow: 0 0 10px rgba(35, 165, 90, 0.4); }
+.status-dot.idle { background-color: #f0b232; }
+.status-dot.dnd { background-color: #f23f43; }
+.status-dot.offline { background-color: #555555; }
+
+.discord-info {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+}
+
+.discord-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #e5e5e5;
+    letter-spacing: 0.5px;
+}
+
+.discord-activity {
+    font-size: 0.75rem;
+    color: #777777;
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+}
+
+.profile-content {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.social-icons {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+}
+
+.icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    color: #666666;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.icon-btn svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.4s ease;
+}
+
+.icon-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+}
+
+.github:hover {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.spotify:hover {
+    color: #1ed760;
+    border-color: rgba(30, 215, 96, 0.2);
+}
+
+.icon-btn:hover svg {
+    transform: scale(1.08);
+}
+
+.spotify-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 25px;
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    justify-content: center;
+}
+
+.spotify-status-icon {
+    width: 16px;
+    height: 16px;
+    color: #1ed760;
+}
+
+.spotify-song {
+    font-size: 0.8rem;
+    color: #cbd5e1;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 240px;
+}
