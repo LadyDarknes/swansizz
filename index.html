@@ -11,10 +11,11 @@
             padding: 0;
         }
         body {
-            font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #ffffff;
             height: 100vh;
             overflow: hidden;
+            background-color: #000;
         }
         #video-container {
             position: fixed;
@@ -35,7 +36,7 @@
             min-width: 100%;
             min-height: 100%;
             object-fit: cover;
-            filter: brightness(0.5);
+            filter: brightness(0.4) contrast(1.1);
         }
         .content-overlay {
             position: relative;
@@ -46,75 +47,107 @@
             justify-content: center;
             height: 100%;
             text-align: center;
-            pointer-events: none;
         }
         .glass-panel {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px); 
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 50px 70px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-            cursor: pointer;
-            pointer-events: auto; 
-            transition: all 0.3s ease;
+            background: rgba(10, 10, 10, 0.2);
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 60px 80px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 500px;
+            width: 90%;
         }
         .glass-panel:hover {
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 12px 48px rgba(0,0,0,0.6);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.9);
         }
         h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 300;
-            letter-spacing: 5px;
+            letter-spacing: 8px;
             text-transform: uppercase;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            background: linear-gradient(315deg, #ffffff 0%, #aaa 74%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        p {
-            font-size: 1rem;
-            color: #ccc;
-            letter-spacing: 1px;
+        
+        /* Modern Etkileşim Butonu */
+        .play-btn {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.4);
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
         }
+        .play-btn:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 20px rgba(255,255,255,0.4);
+        }
+
         .playing-info {
-            margin-top: 30px;
-            display: none;
+            margin-top: 15px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.5s ease;
+        }
+        .playing-info.active {
+            opacity: 1;
+            transform: translateY(0);
         }
         .playing-info h2 {
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 400;
             color: #00e676;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
     <div id="video-container">
-        <video id="bGVideo" loop muted>
+        <video id="bgVideo" loop muted playsinline>
             <source src="video.mp4" type="video/mp4">
         </video>
     </div>
+    
     <div class="content-overlay">
-        
         <div class="glass-panel" id="interactionPanel">
             <h1>TESTSWANSIZZ</h1>
             
+            <button class="play-btn" id="playBtn">log</button>
+            
             <div class="playing-info" id="playingStatus">
+                <h2>test 🎵</h2>
             </div>
         </div>
-
     </div>
+
     <script>
+
         const video = document.getElementById('bgVideo');
-        const panel = document.getElementById('interactionPanel');
+        const btn = document.getElementById('playBtn');
         const status = document.getElementById('playingStatus');
-        const instruction = panel.querySelector('p');
-        panel.addEventListener('click', () => {
+
+        btn.addEventListener('click', () => {
             video.muted = false;
             video.play().then(() => {
-                instruction.style.display = 'none'; 
-                status.style.display = 'block';
+                btn.style.display = 'none';
+                status.classList.add('active'); 
+            }).catch(error => {
+                console.log("Video oynatılamadı, dosya yolunu veya uzantısını kontrol edin:", error);
             });
         }, { once: true });
     </script>
-
 </body>
 </html>
